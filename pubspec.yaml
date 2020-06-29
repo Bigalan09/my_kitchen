@@ -1,0 +1,43 @@
+name: my_kitchen
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.3
+
+  http: ^0.12.1
+  cached_network_image: ^2.2.0+1
+  shared_preferences: ^0.5.7+3
+
+  flutter_stream_friends: ^0.8.0
+
+  intl: ^0.16.1
+  intl_translation: ^0.17.10
+  petitparser: ^3.0.4
+
+  firebase_remote_config: ^0.3.1
+  expand_widget: ^1.0.0+1
+
+  google_fonts: ^1.1.0
+
+  flutter_rating_bar: ^3.0.1+1
+
+dev_dependencies:
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/pizza.jpg
+    - assets/images/background.jpg
