@@ -1,8 +1,8 @@
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_kitchen/common/mvi/viewstate.dart';
 import 'package:my_kitchen/common/widget/labelled-icon.dart';
 import 'package:my_kitchen/common/widget/subheading.dart';
 import 'package:my_kitchen/common/widget/detail-scaffold.dart';
@@ -10,38 +10,24 @@ import 'package:my_kitchen/common/widget/heading.dart';
 import 'package:my_kitchen/common/widget/scrollable_tags.dart';
 import 'package:my_kitchen/common/widget/tag.dart';
 import 'package:my_kitchen/localization/localization.dart';
-import 'package:my_kitchen/screens/recipe/intent.dart';
-import 'package:my_kitchen/screens/recipe/model.dart';
-import 'package:my_kitchen/screens/recipe/state.dart';
+import 'package:my_kitchen/screens/recipe/bloc/recipe_bloc.dart';
 
 class RecipePage extends StatefulWidget {
   static String tag = 'recipe';
 
-  final RecipeIntent intent = RecipeIntent();
-  final RecipeViewModel model = RecipeViewModel();
-
   @override
   _RecipePageState createState() =>
-      _RecipePageState(intent: intent, model: model);
+      _RecipePageState();
 }
 
-class _RecipePageState
-    extends ViewState<RecipePage, RecipeViewModel, RecipeIntent, RecipeState> {
-  _RecipePageState(
-      {@required RecipeIntent intent, @required RecipeViewModel model})
-      : super(intent, model);
-
+class _RecipePageState extends State<RecipePage> {
+  
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: stream,
-        builder: (BuildContext context, AsyncSnapshot<RecipeState> snapshot) {
-          if (!snapshot.hasData) {
-            return Container();
-          }
-
-          return _buildContentWidget(context);
-        });
+    return BlocProvider(
+      create: (context) => RecipeBloc(),
+      child: _buildContentWidget(context),
+    );
   }
 
   Widget _buildContentWidget(BuildContext context) {

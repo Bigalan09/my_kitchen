@@ -1,46 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_kitchen/common/mvi/viewstate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_kitchen/common/widget/heading.dart';
 import 'package:my_kitchen/common/widget/neumorphic-container.dart';
 import 'package:my_kitchen/common/widget/recipe-tile.dart';
 import 'package:my_kitchen/common/widget/title.dart';
 import 'package:my_kitchen/localization/localization.dart';
-import 'package:my_kitchen/screens/dashboard/intent.dart';
-import 'package:my_kitchen/screens/dashboard/model.dart';
-import 'package:my_kitchen/screens/dashboard/state.dart';
 import 'package:my_kitchen/screens/recipe/recipe.dart';
+
+import 'bloc/dashboard_bloc.dart';
 
 class DashboardPage extends StatefulWidget {
   static String tag = 'dashboard';
 
-  final DashboardIntent intent = DashboardIntent();
-  final DashboardViewModel model = DashboardViewModel();
 
   @override
   _DashboardPageState createState() =>
-      _DashboardPageState(intent: intent, model: model);
+      _DashboardPageState();
 }
 
-class _DashboardPageState extends ViewState<DashboardPage, DashboardViewModel,
-    DashboardIntent, DashboardState> {
-  _DashboardPageState(
-      {@required DashboardIntent intent, @required DashboardViewModel model})
-      : super(intent, model);
+class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: stream,
-        builder:
-            (BuildContext context, AsyncSnapshot<DashboardState> snapshot) {
-          if (!snapshot.hasData) {
-            return Container();
-          }
-
-          return _buildContentWidget(context);
-        });
+    return BlocBuilder<DashboardBloc, DashboardState>(
+      builder: (BuildContext context, DashboardState state) {
+        return _buildContentWidget(context);
+      }
+    );
   }
 
   Widget _buildContentWidget(BuildContext context) {
